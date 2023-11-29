@@ -1,0 +1,16 @@
+name: Static Checks Demo
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  my_first_job:
+    name: My First Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cheese
+        run: |
+          echo "Cheese!"
+          echo "The shell is $SHELL"
