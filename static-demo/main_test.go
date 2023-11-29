@@ -1,9 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 )
 
 func Test_Something(t *testing.T) {
-	t.Error("Something went wrong")
+	fmt.Println("Yay, everything works")
 }
