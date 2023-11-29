@@ -7,7 +7,7 @@ import (
 
 func hello(w http.ResponseWriter, req *http.Request) {
 	fmt.Println("Received request at /hello")
-	fmt.Fprintf(w, "Hello workshop\n")
+	fmt.Fprintf(w, "Hello again workshop\n")
 }
 
 func main() {
