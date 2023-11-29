@@ -7,6 +7,7 @@ on:
 
 env:
   IMAGE: foxfurry/gha-demo-public:${{ github.sha }}
+  CONTAINER_NAME: gha-demo-public-server
 
 jobs:
   build_and_push_container:
@@ -36,3 +37,19 @@ jobs:
           context: deploy-demo
           push: true
           tags: ${{ env.IMAGE }}
+
+  deploy:
+    name: Deploy to DigitalOcean Droplet
+    needs: build_and_push_container
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to DigitalOcean Droplet
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            docker rm -f ${{ env.CONTAINER_NAME }} 2> /dev/null || true
+            docker pull ${{ env.IMAGE }}
+            docker run -d -p 80:8080 --name ${{ env.CONTAINER_NAME }} ${{ env.IMAGE }}
