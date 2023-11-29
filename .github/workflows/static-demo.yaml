@@ -31,3 +31,17 @@ jobs:
           version: v1.54
           working-directory: static-demo
 
+  unit-tests:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v4
+        with:
+          go-version: 1.21
+
+      - name: Run unit tests
+        working-directory: static-demo
+        run: |
+          go test ./...
